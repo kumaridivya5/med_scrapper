@@ -670,62 +670,68 @@ function SearchPage() {
                 {(oneMgProducts.length > 0 || apolloProducts.length > 0 || pharmEasyProducts.length > 0 || truemedProducts.length > 0 || netmedProducts.length > 0) && (
                     <>
                         {/* SORTING CONTROLS */}
-                        <div className="flex flex-wrap justify-center gap-3 mb-8 animate-fade-in">
-                            <span className="text-slate-500 font-medium self-center mr-2">Sort by:</span>
-                            <button
-                                onClick={() => {
-                                    setSortBy('relevance');
-                                    setSortOrder('asc');
-                                }}
-                                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${sortBy === 'relevance'
-                                    ? 'bg-slate-900 text-white shadow-md'
-                                    : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
-                                    }`}
-                            >
-                                Relevance
-                            </button>
-                            <button
-                                onClick={() => setSortBy('discount')}
-                                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${sortBy === 'discount'
-                                    ? 'bg-emerald-600 text-white shadow-md'
-                                    : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
-                                    }`}
-                            >
-                                Discount %
-                            </button>
-                            <button
-                                onClick={() => setSortBy('price')}
-                                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${sortBy === 'price'
-                                    ? 'bg-emerald-600 text-white shadow-md'
-                                    : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
-                                    }`}
-                            >
-                                Price (Low to High)
-                            </button>
-                            <button
-                                onClick={() => setSortBy('perUnit')}
-                                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${sortBy === 'perUnit'
-                                    ? 'bg-emerald-600 text-white shadow-md'
-                                    : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
-                                    }`}
-                            >
-                                Price per Unit
-                            </button>
-
-                            {/* Order Toggle */}
-                            {sortBy !== 'relevance' && (
+                        {maxProduct === 1 ? (
+                            <div className="flex flex-wrap justify-center gap-3 mb-8 animate-fade-in text-slate-500 font-medium">
+                                sorting only work when it is more than 1 result
+                            </div>
+                        ) : (
+                            <div className="flex flex-wrap justify-center gap-3 mb-8 animate-fade-in">
+                                <span className="text-slate-500 font-medium self-center mr-2">Sort by:</span>
                                 <button
-                                    onClick={() => setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc')}
-                                    className="px-3 py-2 bg-white border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 transition-all flex items-center gap-1"
-                                    title={sortOrder === 'asc' ? "Ascending Order" : "Descending Order"}
+                                    onClick={() => {
+                                        setSortBy('relevance');
+                                        setSortOrder('asc');
+                                    }}
+                                    className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${sortBy === 'relevance'
+                                        ? 'bg-slate-900 text-white shadow-md'
+                                        : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+                                        }`}
                                 >
-                                    <span className="text-sm font-semibold">{sortOrder === 'asc' ? 'Asc' : 'Desc'}</span>
-                                    <svg className={`w-4 h-4 transition-transform ${sortOrder === 'desc' ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path>
-                                    </svg>
+                                    Relevance
                                 </button>
-                            )}
-                        </div>
+                                <button
+                                    onClick={() => setSortBy('discount')}
+                                    className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${sortBy === 'discount'
+                                        ? 'bg-emerald-600 text-white shadow-md'
+                                        : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+                                        }`}
+                                >
+                                    Discount %
+                                </button>
+                                <button
+                                    onClick={() => setSortBy('price')}
+                                    className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${sortBy === 'price'
+                                        ? 'bg-emerald-600 text-white shadow-md'
+                                        : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+                                        }`}
+                                >
+                                    Price (Low to High)
+                                </button>
+                                <button
+                                    onClick={() => setSortBy('perUnit')}
+                                    className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${sortBy === 'perUnit'
+                                        ? 'bg-emerald-600 text-white shadow-md'
+                                        : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+                                        }`}
+                                >
+                                    Price per Unit
+                                </button>
+
+                                {/* Order Toggle */}
+                                {sortBy !== 'relevance' && (
+                                    <button
+                                        onClick={() => setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc')}
+                                        className="px-3 py-2 bg-white border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 transition-all flex items-center gap-1"
+                                        title={sortOrder === 'asc' ? "Ascending Order" : "Descending Order"}
+                                    >
+                                        <span className="text-sm font-semibold">{sortOrder === 'asc' ? 'Asc' : 'Desc'}</span>
+                                        <svg className={`w-4 h-4 transition-transform ${sortOrder === 'desc' ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path>
+                                        </svg>
+                                    </button>
+                                )}
+                            </div>
+                        )}
 
                         <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 animate-fade-in scrollbar-hide">
 
